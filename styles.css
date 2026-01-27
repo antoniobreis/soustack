@@ -12,31 +12,40 @@
 
 :root {
     /* Brand Colors - Official Palette */
-    --bg-primary: #0a192f;
-    --brand-color: #00acc1;
-    --text-primary: #b2aaaa;
+    --brand-color: #00ACC1;
+    --brand-hover: #00c3d9;
     --text-heading: #ffffff;
-    --text-secondary: #666666;
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --card-bg-hover: rgba(255, 255, 255, 0.05);
-    
-    /* Typography */
+    --text-primary: #b2aaaa;
+    --bg-primary: #050a14;
+    --bg-secondary: #0a1425;
+    --card-bg: rgba(10, 20, 37, 0.6);
+    --card-bg-hover: rgba(10, 20, 37, 0.8);
+    --transition-smooth: all 0.3s ease;
+    --transition-fast: all 0.2s ease;
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Roboto', sans-serif;
-    
-    /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
     --spacing-xl: 6rem;
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --container-max-width: 1200px;
+    --header-height: 80px;
+    --scroll-padding: 100px;
+}
+
+/* ========== RESET & BASE STYLES ========== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--scroll-padding);
 }
 
 body {
@@ -49,7 +58,7 @@ body {
 
 /* ========== UTILITY CLASSES ========== */
 .container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 }
@@ -67,7 +76,7 @@ body {
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 1.2rem var(--spacing-md);
     display: flex;
@@ -271,7 +280,7 @@ body {
 .btn-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 30px rgba(0, 172, 193, 0.5);
-    background-color: #00c3d9;
+    background-color: var(--brand-hover);
 }
 
 /* ========== PROBLEM SOLUTION SECTION ========== */
@@ -477,12 +486,14 @@ body {
     transition: var(--transition-smooth);
     box-shadow: 0 4px 15px rgba(0, 172, 193, 0.3);
     letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
+    transform: scale(1.05);
     box-shadow: 0 8px 30px rgba(0, 172, 193, 0.5);
-    background-color: #00c3d9;
+    background-color: var(--brand-hover);
 }
 
 .btn-primary svg {
@@ -553,12 +564,20 @@ body {
         justify-content: center;
     }
 }
+
 /* ========== FOOTER ========== */
 .footer {
     background-color: rgba(0, 0, 0, 0.3);
     padding: var(--spacing-md) 0;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 .footer-text {
@@ -745,7 +764,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem var(--spacing-md);
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
     gap: var(--spacing-md);
 }
@@ -784,8 +803,8 @@ body {
 }
 
 .cookie-btn:hover {
-    background-color: #00c3d9;
-    transform: translateY(-2px);
+    transform: scale(1.05);
+    background-color: var(--brand-hover);
     box-shadow: 0 4px 15px rgba(0, 172, 193, 0.5);
 }
 
@@ -838,6 +857,14 @@ body {
     .btn-primary {
         padding: 0.9rem 2rem;
         font-size: 1rem;
+    }
+    
+    .container {
+        padding: 0 20px;
+    }
+    
+    :root {
+        --scroll-padding: 80px;
     }
 }
 
