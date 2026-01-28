@@ -22,6 +22,35 @@ document.addEventListener('DOMContentLoaded', function() {
     if (currentYearElement) {
         currentYearElement.textContent = new Date().getFullYear();
     }
+
+    // Smooth scroll with header offset calculation for Safari/iOS compatibility
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return; // Ignora links vazios
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Pega a altura real do header naquele momento
+                const headerOffset = document.querySelector('header').offsetHeight;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset - 20; // -20px de respiro extra
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+                
+                // Fechar o menu mobile se estiver aberto
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            }
+        });
+    });
 });
 
 // Cookie Consent Script

@@ -832,6 +832,12 @@ body {
 }
 
 /* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 991px) {
+    #home {
+        padding-top: 140px !important; /* Força o conteúdo a começar BEM abaixo do menu */
+    }
+}
+
 @media (max-width: 1024px) {
     section, #home, #diferenciais, #portfolio, #contato {
         scroll-margin-top: 140px !important;
