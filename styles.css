@@ -45,7 +45,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: var(--scroll-padding);
+    scroll-padding-top: 120px !important;
 }
 
 body {
@@ -828,7 +828,17 @@ body {
 }
 
 /* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1024px) {
+    html {
+        scroll-padding-top: 130px !important;
+    }
+}
+
 @media (max-width: 768px) {
+    html {
+        scroll-padding-top: 140px !important;
+    }
+    
     .nav-menu {
         display: none;
     }
