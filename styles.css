@@ -914,6 +914,7 @@ body {
 /* ========== PRIVACY POLICY PAGE ========== */
 .privacy-policy {
     padding: var(--spacing-xl) 0;
+    padding-top: 140px; /* Compensa header fixo */
     background-color: var(--bg-primary);
     min-height: 100vh;
 }
