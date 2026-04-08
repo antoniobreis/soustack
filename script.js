@@ -16,41 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
             navMenu.classList.remove('active');
         });
     });
-
+    
     // Auto-update current year in footer
     const currentYearElement = document.getElementById('current-year');
     if (currentYearElement) {
         currentYearElement.textContent = new Date().getFullYear();
     }
-
-    // Smooth scroll with header offset calculation for Safari/iOS compatibility
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return; // Ignora links vazios
-
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // Pega a altura real do header naquele momento
-                const headerOffset = document.querySelector('header').offsetHeight;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset - 20; // -20px de respiro extra
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
-                
-                // Fechar o menu mobile se estiver aberto
-                if (navMenu && navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
-                }
-            }
-        });
-    });
 });
 
 // Cookie Consent Script
@@ -70,6 +41,146 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('cookieConsent', 'accepted');
         cookieBanner.style.display = 'none';
     });
+});
+
+// ========== PORTFOLIO CAROUSEL CENTER MODE ==========
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos do DOM
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    
+    // Verificar se existem itens
+    if (carouselItems.length === 0) return;
+    
+    // Configurações
+    let currentIndex = 0;
+    const totalItems = carouselItems.length;
+    let autoPlayTimer = null;
+    let isAutoPlayActive = false;
+    
+    /**
+     * Atualiza posições dos itens
+     */
+    function updateCarouselPositions() {
+        carouselItems.forEach((item, index) => {
+            // Remove todas as classes
+            item.classList.remove('active', 'prev', 'next');
+            
+            // Adiciona classes baseadas na posição
+            if (index === currentIndex) {
+                item.classList.add('active');
+            } else if (index === getPrevIndex()) {
+                item.classList.add('prev');
+            } else if (index === getNextIndex()) {
+                item.classList.add('next');
+            }
+        });
+    }
+    
+    /**
+     * Obtém índice anterior
+     */
+    function getPrevIndex() {
+        return (currentIndex - 1 + totalItems) % totalItems;
+    }
+    
+    /**
+     * Obtém próximo índice
+     */
+    function getNextIndex() {
+        return (currentIndex + 1) % totalItems;
+    }
+    
+    /**
+     * Avança para próximo slide
+     */
+    function nextSlide() {
+        currentIndex = getNextIndex();
+        updateCarouselPositions();
+    }
+    
+    /**
+     * Inicia autoplay
+     */
+    function startAutoPlay() {
+        if (!isAutoPlayActive) {
+            isAutoPlayActive = true;
+            autoPlayTimer = setInterval(nextSlide, 5000);
+        }
+    }
+    
+    /**
+     * Para autoplay
+     */
+    function stopAutoPlay() {
+        if (isAutoPlayActive && autoPlayTimer) {
+            isAutoPlayActive = false;
+            clearInterval(autoPlayTimer);
+            autoPlayTimer = null;
+        }
+    }
+    
+    /**
+     * Reseta autoplay
+     */
+    function resetAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+    }
+    
+    // Event listeners
+    const carousel = document.querySelector('.portfolio-carousel');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    
+    // Pausar no hover
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+    
+    // Navegação com botões
+    prevBtn.addEventListener('click', () => {
+        const prevIndex = (currentIndex - 1 + totalItems) % totalItems;
+        currentIndex = prevIndex;
+        updateCarouselPositions();
+        resetAutoPlay();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetAutoPlay();
+    });
+    
+    // Navegação manual com setas do teclado
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            nextSlide(); // Vai para o anterior (próximo no sentido anti-horário)
+            resetAutoPlay();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            const prevIndex = (currentIndex - 1 + totalItems) % totalItems;
+            currentIndex = prevIndex;
+            updateCarouselPositions();
+            resetAutoPlay();
+        }
+    });
+    
+    // Click nos itens para lightbox
+    carouselItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            openLightbox(index);
+        });
+    });
+    
+    // Inicialização
+    updateCarouselPositions();
+    
+    // Iniciar auto-play após 3 segundos para evitar bug inicial
+    setTimeout(() => {
+        startAutoPlay();
+    }, 3000);
+    
+    // Cleanup
+    window.addEventListener('beforeunload', stopAutoPlay);
 });
 
 // Lightbox Gallery with Navigation
@@ -93,6 +204,11 @@ document.addEventListener('DOMContentLoaded', function() {
             src: 'assets/breis.png',
             title: 'Site Institucional - Breis Entregas',
             alt: 'Site Institucional Breis Entregas'
+        },
+        {
+            src: 'assets/rotopecas.png',
+            title: 'Site Institucional - Rotopeças Abrasivos',
+            alt: 'Site Institucional Rotopeças Abrasivos'
         }
     ];
 
