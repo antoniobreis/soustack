@@ -524,7 +524,7 @@ body {
     position: absolute;
     width: 400px;
     height: auto;
-    min-height: 450px;
+    min-height: 380px;
     background-color: var(--card-bg);
     border-radius: 16px;
     overflow: hidden;
@@ -620,6 +620,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin: 0;
+    margin-bottom: 0;
 }
 
 /* Navegação do Carrossel */
