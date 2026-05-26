@@ -677,11 +677,13 @@ body {
 
 @media (max-width: 768px) {
     .portfolio-carousel {
-        height: 450px;
+        height: 350px;
     }
     
     .carousel-item {
         width: 300px;
+        height: max-content;
+        min-height: auto;
     }
     
     .carousel-item.prev {
@@ -709,11 +711,13 @@ body {
 
 @media (max-width: 480px) {
     .portfolio-carousel {
-        height: 400px;
+        height: 320px;
     }
     
     .carousel-item {
         width: 280px;
+        height: max-content;
+        min-height: auto;
     }
     
     .carousel-item.prev {
