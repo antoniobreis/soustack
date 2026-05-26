@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateCarouselPositions() {
         carouselItems.forEach((item, index) => {
             // Remove todas as classes
-            item.classList.remove('active', 'prev', 'next');
+            item.classList.remove('active', 'prev', 'next', 'hidden');
             
             // Adiciona classes baseadas na posição
             if (index === currentIndex) {
@@ -94,6 +94,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.classList.add('prev');
             } else if (index === getNextIndex()) {
                 item.classList.add('next');
+            } else {
+                // Itens que não são active, prev ou next ficam invisíveis
+                item.classList.add('hidden');
             }
         });
     }
@@ -218,17 +221,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Array de projetos
     const projects = [
         {
-            src: 'assets/gaby.png',
-            title: 'Landing Page - Nutricionista Gabrielly Roncaglio',
-            alt: 'Landing Page Mobile Gabrielly Roncaglio Nutricionista'
+            src: 'assets/nutri-gaby-roncaglio.png',
+            title: 'One Page - Nutricionista Gabrielly Roncaglio',
+            alt: 'One Page Mobile Gabrielly Roncaglio Nutricionista'
         },
         {
-            src: 'assets/breis.png',
+            src: 'assets/nutri-ana-caroline.png',
+            title: 'One Page - Nutricionista Ana Caroline',
+            alt: 'One Page Ana Caroline Nutricionista'
+        },
+        {
+            src: 'assets/breis-entregas.png',
             title: 'Site Institucional - Breis Entregas',
-            alt: 'Site Institucional Breis Entregas'
+            alt: 'Site Institucional Mobile Breis Entregas'
         },
         {
-            src: 'assets/rotopecas.png',
+            src: 'assets/rotopecas-abrasivos.png',
             title: 'Site Institucional - Rotopeças Abrasivos',
             alt: 'Site Institucional Rotopeças Abrasivos'
         }
